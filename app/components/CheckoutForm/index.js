@@ -8,95 +8,16 @@ import { injectStripe } from 'react-stripe-elements';
 // import AddressSection from 'components/AddressSection';
 import CardSection from 'components/CardSection';
 import RaisedButton from 'material-ui/RaisedButton';
+import MenuItem from 'material-ui/MenuItem';
 import TextField from 'material-ui/TextField';
 import { orange500, blue500 } from 'material-ui/styles/colors';
 import SelectField from 'material-ui/SelectField';
-import MenuItem from 'material-ui/MenuItem';
+import Countries from './countries';
 
 const countryDropdown = [];
-const countries = [
-  'Afghanistan',
-  'Åland Islands',
-  'Albania',
-  'Algeria',
-  'American Samoa',
-  'Andorra',
-  'Angola',
-  'Anguilla',
-  'Antarctica',
-  'Antigua and Barbuda',
-  'Argentina',
-  'Armenia',
-  'Aruba',
-  'Australia',
-  'Austria',
-  'Azerbaijan',
-  'Bahamas',
-  'Bahrain',
-  'Bangladesh',
-  'Barbados',
-  'Belarus',
-  'Belgium',
-  'Belize',
-  'Benin',
-  'Bermuda',
-  'Bhutan',
-  'Bolivia, Plurinational State of',
-  'Bonaire, Sint Eustatius and Saba',
-  'Bosnia and Herzegovina',
-  'Botswana',
-  'Bouvet Island',
-  'Brazil',
-  'British Indian Ocean Territory',
-  'Brunei Darussalam',
-  'Bulgaria',
-  'Burkina Faso',
-  'Burundi',
-  'Cambodia',
-  'Cameroon',
-  'Canada',
-  'Cape Verde',
-  'Cayman Islands',
-  'Central African Republic',
-  'Chad',
-  'Chile',
-  'China',
-  'Christmas Island',
-  'Cocos (Keeling) Islands',
-  'Colombia',
-  'Comoros',
-  'Congo',
-  'Congo, the Democratic Republic of the',
-  'Cook Islands',
-  'Costa Rica',
-  'Côte d\'Ivoire',
-  'Croatia',
-  'Cuba',
-  'Curaçao',
-  'Cyprus',
-  'Czech Republic',
-  'Denmark',
-  'Djibouti',
-  'Dominica',
-  'Dominican Republic',
-  'Ecuador',
-  'Egypt',
-  'El Salvador',
-  'Equatorial Guinea',
-  'Eritrea',
-  'Estonia',
-  'Ethiopia',
-  'Falkland Islands (Malvinas)',
-  'Faroe Islands',
-  'Fiji',
-  'Finland',
-  'France',
-  'French Guiana',
-  'French Polynesia',
-  'French Southern Territories',
-];
-for (let i = 0; i < 78; i++) {
-  countryDropdown.push(<MenuItem value={countries[i]} key={i} primaryText={countries[i]} />);
+
+for (let i = 0; i < 248; i++) {
+  countryDropdown.push(<MenuItem value={Countries[i]} key={i} primaryText={Countries[i]} />);
 }
 class CheckoutForm extends React.PureComponent {
   constructor(props) {
@@ -105,10 +26,11 @@ class CheckoutForm extends React.PureComponent {
       city: '',
       name: '',
       country: '',
+      value: 'United States',
     };
   }
   state = {
-    value: 'Afghanistan',
+    value: 'United States',
   };
   handleChange = (event, index, value) => {
     this.setState({ value });
@@ -129,7 +51,7 @@ class CheckoutForm extends React.PureComponent {
 
     // Within the context of `Elements`, this call to createToken knows which Element to
     // tokenize, since there's only one in this group.
-    this.props.stripe.createToken({ name: this.state.name, address_city: this.state.city, address_country: this.state.country }).then(({ token }) => {
+    this.props.stripe.createToken( { name: this.state.name, address_city: this.state.city, address_country: this.state.country }).then(({ token }) => {
       console.log('Received Stripe token:', JSON.stringify(token));
     });
 
